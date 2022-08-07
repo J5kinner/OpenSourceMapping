@@ -1,0 +1,19 @@
+#demoformcontainer {
+    display: flex; 
+    justify-content: space-around;
+    background-color: pink;
+    width: 90%;
+    margin: auto;
+}
+
+
+#theform {
+    background-color: white;
+    flex-grow: 2;
+}
+
+#formvaluedisplay {
+    background-color:  black;
+    color: white;
+    flex-grow: 1;
+}
