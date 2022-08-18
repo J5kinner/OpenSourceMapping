@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-
+./data/VERY_BIG_TEST.json
 # testing
 /coverage
 
