@@ -1,18 +1,33 @@
-# OpenLayers + Vite
+# faims3-map-input
 
-This example demonstrates how the `ol` package can be used with [Vite](https://vitejs.dev/).
+> Map based input widget for FAIMS3
 
-To get started, run the following (requires Node 14+):
+[![NPM](https://img.shields.io/npm/v/@faims-project/faims3-map-input.svg)](https://www.npmjs.com/package/@faims-project/faims3-map-input) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-    npx create-ol-app my-app --template vite
+## Install
 
-Then change into your new `my-app` directory and start a development server (available at http://localhost:5173):
+```bash
+npm install --save @faims-project/faims3-map-input
+```
 
-    cd my-app
-    npm start
+## Usage
 
-To generate a build ready for production:
+```tsx
+import React, { Component } from 'react'
+import { Field, Form, Formik } from 'formik';
+import MapFormField from '@faims-project/faims3-map-input'
 
-    npm run build
+class Example extends Component {
+  render() {
+      return <Formik>
+                <Form>
+                  <Field name="circle" featureType="Circle" component={MapFormField} />
+                </Form>
+             </Formik>
+  }
+}
+```
 
-Then deploy the contents of the `dist` directory to your server.  You can also run `npm run serve` to serve the results of the `dist` directory for preview.
+## License
+
+[Apache2](http://www.apache.org/licenses/LICENSE-2.0) © [stevecassidy](https://github.com/stevecassidy)
