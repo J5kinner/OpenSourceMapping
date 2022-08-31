@@ -1,3 +1,12 @@
+# How to get started
+
+`yarn install` at the top level 
+then run `yarn start` to start the map input application.
+Then `cd example` and `yarn install` to install the example application.
+Then `yarn start` to start the example application.
+
+### Make sure to install one thing at a time to avoid conflicts.
+
 # faims3-map-input
 
 > Map based input widget for FAIMS3
@@ -31,3 +40,5 @@ class Example extends Component {
 ## License
 
 [Apache2](http://www.apache.org/licenses/LICENSE-2.0) © [stevecassidy](https://github.com/stevecassidy)
+
+
