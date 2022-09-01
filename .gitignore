@@ -7,7 +7,7 @@
 ./data/VERY_BIG_TEST.json
 # testing
 /coverage
-
+example
 # production
 /build
 

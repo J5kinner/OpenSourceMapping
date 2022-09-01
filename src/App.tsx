@@ -1,9 +1,9 @@
 import "./App.css";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
-import polygonData from "./data/Maritime_Speed_Zones.json";
-import polylineData from "./data/Sculpture_by_the_Sea_2017.json";
-import vertexData from "./data/Sydney_Live_Cameras.json";
-import polylineData2 from "./data/Sydney_Spring_Cycle_15_October.json";
+// import polygonData from "./data/Maritime_Speed_Zones.json";
+// import polylineData from "./data/Sculpture_by_the_Sea_2017.json";
+//import vertexData from "./data/hundredthou_lines.json";
+// import polylineData2 from "./data/Sydney_Spring_Cycle_15_October.json";
 // import bigData from "./data/VERY_BIG_TEST.json";
 // import L from "leaflet";
 import TopoJSON from "./TopoJSON";
@@ -31,7 +31,7 @@ function App() {
       <div className="size">
         <MapContainer
           center={[-33.86, 151.21]}
-          zoom={15}
+          zoom={12}
           scrollWheelZoom={false}
         >
           <TileLayer
@@ -39,10 +39,10 @@ function App() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <MapEvents />
-          <TopoJSON data={vertexData} />
-          <TopoJSON data={polygonData} />
+          {/* <TopoJSON data={vertexData} /> */}
+          {/* <TopoJSON data={polygonData} />
           <TopoJSON data={polylineData} />
-          <TopoJSON data={polylineData2} />
+          <TopoJSON data={polylineData2} /> */}
 
           {/* <TopoJSON data={bigData} /> */}
 
