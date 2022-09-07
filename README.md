@@ -7,25 +7,25 @@ Implemented GeoMoose, OpenLayers and Leaflet for the purpose of being able to up
 The results are that GeoMoose and Leaflet performed poorly in comparison to openlayers. Choosing OpenLayers as the winner, we can start building the final application. 
 
 # The Plan
-1. [ ]  Implement the main UI from (figma)[https://www.figma.com/file/Mi1rOnJrmOvQbkW3S5J6gL/Thesis-Mockup?node-id=0%3A1]
-2. [ ]  Build the map for the main UI
-3. Implement Steve's features including: 
-    [ ]  Buttons to draw geoJson points, lines and polygons
-    [ ]  Implement formik format 
-    
-4. Implement requirements from the thesis:
-    [ ]  Load GeoJson from a file before user input 
-    [ ]  Implement symbology (aka colour picker for points, lines and polygons)
+[ ]  Implement the main UI from [figma](https://www.figma.com/file/Mi1rOnJrmOvQbkW3S5J6gL/Thesis-Mockup?node-id=0%3A1)
+[ ]  Build the map for the main UI
+### Implement Steve's features including: 
+[ ]  Buttons to draw geoJson points, lines and polygons
+[ ]  Implement formik format 
 
-5. Offline Capabilities:
-    [ ]  Implement local storage for GeoJson
-    [ ]  Implement local storage for symbology
-    [ ]  Implement local storage for user input
-    [ ]  Implement local storage for map tiles offline caching
-    [ ]  Implement GeoTiff uploading tiles 
-    [ ]  Implement Queries for geojson and symbology
+### Implement requirements from the thesis:
+[ ]  Load GeoJson from a file before user input 
+[ ]  Implement symbology (aka colour picker for points, lines and polygons)
 
-6. Performance 
-    [x] Create benchmarks for performance
-    [ ]  Automate regression tests
-    [ ]  Maintain benchmarking 
+### Offline Capabilities:
+[ ]  Implement local storage for GeoJson
+[ ]  Implement local storage for symbology
+[ ]  Implement local storage for user input
+[ ]  Implement local storage for map tiles offline caching
+[ ]  Implement GeoTiff uploading tiles 
+[ ]  Implement Queries for geojson and symbology
+
+### Performance 
+[x] Create benchmarks for performance
+[ ]  Automate regression tests
+[ ]  Maintain benchmarking 
