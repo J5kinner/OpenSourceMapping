@@ -12,9 +12,11 @@ The results are that GeoMoose and Leaflet performed poorly in comparison to open
 3. Implement Steve's features including: 
     [ ]  Buttons to draw geoJson points, lines and polygons
     [ ]  Implement formik format 
+    
 4. Implement requirements from the thesis:
     [ ]  Load GeoJson from a file before user input 
     [ ]  Implement symbology (aka colour picker for points, lines and polygons)
+
 5. Offline Capabilities:
     [ ]  Implement local storage for GeoJson
     [ ]  Implement local storage for symbology
@@ -22,6 +24,7 @@ The results are that GeoMoose and Leaflet performed poorly in comparison to open
     [ ]  Implement local storage for map tiles offline caching
     [ ]  Implement GeoTiff uploading tiles 
     [ ]  Implement Queries for geojson and symbology
+
 6. Performance 
     [x] Create benchmarks for performance
     [ ]  Automate regression tests
