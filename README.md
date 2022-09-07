@@ -7,7 +7,7 @@ Implemented GeoMoose, OpenLayers and Leaflet for the purpose of being able to up
 The results are that GeoMoose and Leaflet performed poorly in comparison to openlayers. Choosing OpenLayers as the winner, we can start building the final application. 
 
 # The Plan
-[ ]  Implement the main UI from [figma](https://www.figma.com/file/Mi1rOnJrmOvQbkW3S5J6gL/Thesis-Mockup?node-id=0%3A1)
+[]  Implement the main UI from [figma](https://www.figma.com/file/Mi1rOnJrmOvQbkW3S5J6gL/Thesis-Mockup?node-id=0%3A1)
 [ ]  Build the map for the main UI
 ### Implement Steve's features including: 
 [ ]  Buttons to draw geoJson points, lines and polygons
