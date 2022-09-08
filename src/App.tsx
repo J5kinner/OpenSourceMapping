@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Button} from 'antd';
 import './css/App.css';
-import { OLMap } from './components/OLMap';
+
 
 // function FileUploader() {
 //   let htmlData;

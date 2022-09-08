@@ -29,3 +29,14 @@ The results are that GeoMoose and Leaflet performed poorly in comparison to open
 - [x] Create benchmarks for performance
 - [ ]  Automate regression tests
 - [ ]  Maintain benchmarking 
+
+# How to run the project
+`npm install` to install all the dependencies
+`npm start` to start the project
+
+# CI/CD
+## Tests
+`/src/tests` contains all the tests for the application. These are run using `npm test` and are run on every push to the repo.
+## Check for unused dependencies
+`npm-check` to find the unused packages
+`npm uninstall <package_name>` remove the package and module folder
