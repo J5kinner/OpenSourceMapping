@@ -3,6 +3,8 @@
 }
 .tool-header {
   background-color: #fff;
+  display: flexbox;
+  flex-direction: row;
  
 }
 
