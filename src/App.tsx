@@ -1,45 +1,31 @@
-import React, {useState, useEffect} from 'react';
-import {Button} from 'antd';
-import './css/App.css';
+import React from "react";
+import { Button } from "antd";
+import Map from "./components/Map";
+import 'ol/ol.css';
+import "./css/App.css";
+import AddnDelete from "./components/AddnDelete";
+import DrawnModify from "./components/DrawnModify";
+import GeoJSON from "./components/GeoJSON";
 
-
-// function FileUploader() {
-//   let htmlData;
-//   const defaultFileType = "html";
-//   let fileInput = React.createRef();
-//   let fileInput2 = React.createRef();
-
-//   const [selectFile, setFile] = useState({
-//     fileType: defaultFileType,
-//     fileDownloaderURL: null,
-//     status: "",
-//     newFileName: "",
-//     data: "",
-//   });
 
 
 function App() {
   return (
     <div className="App">
       <header className="tool-header">
-        <h1>
-          Mapping Pro
-        </h1>
-        <Button type="primary" >Upload</Button>
-
-  
+        <h1>Mapping Pro</h1>
+        <Button type="primary">Upload</Button>
       </header>
       <section className="work-section">
-
         <div className="split map-area">
-         
+          {/* <div className="feature"><Map /></div> */}
+          <div className="feature"><AddnDelete /></div>
+          <div className="feature"><DrawnModify /></div>
+          <div className="feature"><GeoJSON /></div>
+          
 
         </div>
-        <div className="split toolset">
-
-        </div>
-     
-
+        <div className="split toolset"></div>
       </section>
     </div>
   );
