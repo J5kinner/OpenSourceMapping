@@ -56,7 +56,7 @@ export default function Features(): JSX.Element {
           </RStyle.RStyle>
         </RLayerVector>
         {/* From an URL */}
-        {/* <RLayerVector
+        <RLayerVector
           zIndex={5}
           format={new GeoJSON({ featureProjection: "EPSG:3857" })}
           url="https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson"
@@ -71,7 +71,7 @@ export default function Features(): JSX.Element {
             <RStyle.RStroke color="#007bff" width={3} />
             <RStyle.RFill color="transparent" />
           </RStyle.RStyle>
-        </RLayerVector> */}
+        </RLayerVector>
       </RMap>
       <div className="mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow example-list">
         <p>Your actions</p>
