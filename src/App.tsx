@@ -10,7 +10,46 @@ import GeoJSON from "./components/GeoJSON";
 //Formik
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
 
-const initialValues = {};
+
+
+function App() {
+  return (
+    <div className="App">
+      <header className="tool-header">
+        <h1>Mapping Pro</h1>
+      </header>
+      <section className="work-section">
+        <div className="split map-area">
+          {/* <div className="feature"><Map /></div> */}
+          <div className="feature">
+            <MapForm />
+          </div>
+          <div className="feature">
+            <AddnDelete />
+          </div>
+          <div className="feature">
+            <DrawnModify />
+          </div>
+          <div className="feature">
+            <GeoJSON />
+          </div>
+        </div>
+        <div className="split toolset">
+          <div className="button-tools">
+            <button type="submit">Add/Remove Points</button>
+            <button type="submit">Draw/Modify Map</button>
+            <button type="submit">Upload BaseMap</button>
+          </div>
+          <div className="results">
+            <pre>
+              <p>Results</p> {/* {JSON.stringify(formProps.values, null, 2)} */}
+            </pre>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
 
 const MapForm = () => (
   <div>
@@ -90,45 +129,5 @@ const MapForm = () => (
     </Formik>
   </div>
 );
-
-function App() {
-  return (
-    <div className="App">
-      <header className="tool-header">
-        <h1>Mapping Pro</h1>
-        <Button type="primary">Upload</Button>
-      </header>
-      <section className="work-section">
-        <div className="split map-area">
-          {/* <div className="feature"><Map /></div> */}
-          <div className="feature">
-            <MapForm />
-          </div>
-          <div className="feature">
-            <AddnDelete />
-          </div>
-          <div className="feature">
-            <DrawnModify />
-          </div>
-          <div className="feature">
-            <GeoJSON />
-          </div>
-        </div>
-        <div className="split toolset">
-          <div className="button-tools">
-            <button type="submit">Add/Remove Points</button>
-            <button type="submit">Draw/Modify Map</button>
-            <button type="submit">Upload BaseMap</button>
-          </div>
-          <div className="results">
-            <pre>
-              <p>Results</p> {/* {JSON.stringify(formProps.values, null, 2)} */}
-            </pre>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
 
 export default App;
