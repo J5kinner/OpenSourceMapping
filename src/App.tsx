@@ -42,8 +42,6 @@ function App() {
         <div className="feature">
             <MapForm />
           </div> 
-        
-          
         </div>
         <div className="split toolset">
           <div className="button-tools">
