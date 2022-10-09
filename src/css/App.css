@@ -10,8 +10,6 @@
 
 .work-section {
   padding: 2%;
-
-
 }
 
 .map-area {
@@ -23,12 +21,6 @@
   color: white;
 
 
-}
-
-.toolset {
-  background-color: rgb(222, 5, 5);
-  right: 0;
-  width: 30%;
 }
 
 .split {
@@ -51,4 +43,25 @@
 
 .feature p {
   padding: 0.5em;
+}
+
+.toolset {
+  background-color: rgb(222, 5, 5);
+  right: 0;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin:auto;
+}
+
+.button-tools {
+  background-color: white;
+  flex-grow: 1;
+}
+
+.results {
+  background-color:  black;
+    color: white;
+    flex-grow: 1;
 }
