@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button } from "antd";
 import Map from "./components/Map";
 import "ol/ol.css";
@@ -13,6 +13,15 @@ import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
 
 
 function App() {
+  const [feature, setFeature] = useState('');
+
+  const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  
+  const button: HTMLButtonElement = event.currentTarget;
+    setFeature(button.name);
+  };
+
   return (
     <div className="App">
       <header className="tool-header">
@@ -21,24 +30,26 @@ function App() {
       <section className="work-section">
         <div className="split map-area">
           {/* <div className="feature"><Map /></div> */}
-          <div className="feature">
+          {feature !== "polygons" && feature !== "upload"
+          ? <div className="feature"><AddnDelete /></div>
+          : "No button clicked yet"}
+          {feature !== "points" && feature !== "upload"
+          ? <div className="feature"><DrawnModify /></div>
+          : <div className="feature">
+          <GeoJSON />
+        </div>}
+      
+        <div className="feature">
             <MapForm />
-          </div>
-          <div className="feature">
-            <AddnDelete />
-          </div>
-          <div className="feature">
-            <DrawnModify />
-          </div>
-          <div className="feature">
-            <GeoJSON />
-          </div>
+          </div> 
+        
+          
         </div>
         <div className="split toolset">
           <div className="button-tools">
-            <button type="submit">Add/Remove Points</button>
-            <button type="submit">Draw/Modify Map</button>
-            <button type="submit">Upload BaseMap</button>
+            <button name="points" type="submit" onClick={buttonHandler}>Add/Remove Points</button>
+            <button name="polygons" type="submit" onClick={buttonHandler}>Draw/Modify Map</button>
+            <button name="upload" type="submit" onClick={buttonHandler}>Upload BaseMap</button>
           </div>
           <div className="results">
             <pre>
