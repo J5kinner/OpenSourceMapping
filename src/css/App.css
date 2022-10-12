@@ -64,4 +64,5 @@
   background-color:  black;
     color: white;
     flex-grow: 1;
+    word-wrap: true;
 }

@@ -7,32 +7,44 @@ import "./css/App.css";
 import AddnDelete from "./components/AddnDelete";
 import DrawnModify from "./components/DrawnModify";
 import GeoJSON from "./components/GeoJSON";
+import { Coordinate } from "ol/coordinate";
+import { Feature } from "ol";
+
+
 
 //Formik
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
 
-function GetFeature(buttonName: String) {
-  switch (buttonName) {
-    case "points":
-      return <AddnDelete />;
-    case "polygons":
-      return <DrawnModify />;
-    case "upload":
-      return <GeoJSON />;
-    default:
-      return <Map />;
-  }
-}
-
 const App = () => {
+  const [parentFeature, setParentFeature] = useState();
   const [feature, setFeature] = useState("");
 
+
+  const updateFeature = (features: any ): void => {
+    setParentFeature(features)
+  }
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
     const buttonName: string = button.name;
     setFeature(buttonName);
   };
+
+  function GetFeature(buttonName: String) {
+    switch (buttonName) {
+      case "points":
+        return <AddnDelete listItems={parentFeature} updateFeature={updateFeature}/>;
+      case "polygons":
+        return <DrawnModify />;
+      case "upload":
+        return <GeoJSON />;
+      default:
+        return <Map />;
+    }
+  }
+  // var listItems = parentFeature.map((f) => (<li key={f.get("uid")}>{f.get("name")}, {f.get("geometry")[0]}, </li>));
+
+  
 
   return (
     <div className="App">
@@ -42,7 +54,7 @@ const App = () => {
       <section className="work-section">
         <Formik
           initialValues={{
-            points: {},
+            point: {},
             polygon: {},
             linestring: {},
           }}
@@ -57,31 +69,20 @@ const App = () => {
                 {GetFeature(feature)}
                 <div className="split tool-area">
                   <div className="tool">
-                    {/* <Form>
-                      <p>
-                        First button does not specify featureType so defaults to
-                        Point, center is defined
-                      </p>
-                      <Field
+                    <Form>
+                  
+                      {/* <Field
                         label="This label was set explicitly"
                         name="point"
-                        center={center}
-                        component={MapFormField}
-                      />
-                      
-                      <p>Specify center position and featureType: Point</p>
-                      <Field
-                        name="point"
-                        center={center}
-                        featureType="Point"
-                        component={MapFormField}
-                      />
+                        component={AddnDelete}
+                      /> */}
+                    
                   
                       <p></p>
                       <Button color="primary" type="link">
                         Submit
                       </Button>
-                    </Form> */}
+                    </Form>
                   </div>
                 </div>
               </div>
@@ -97,9 +98,15 @@ const App = () => {
                     Upload BaseMap
                   </button>
                 </div>
+                <div>
+
+
+                </div>
                 <div className="results">
                   <pre>
                     <p>Results</p> {JSON.stringify(formProps.values, null, 2)}
+                    <p>Child Results: {JSON.stringify(parentFeature)}</p>
+
                   </pre>
                 </div>
               </div>
