@@ -16,7 +16,7 @@ import { Feature } from "ol";
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
 
 const App = () => {
-  const [parentFeature, setParentFeature] = useState();
+  const [parentFeature, setParentFeature] = useState([]);
   const [feature, setFeature] = useState("");
 
 
@@ -42,7 +42,7 @@ const App = () => {
         return <Map />;
     }
   }
-  // var listItems = parentFeature.map((f) => (<li key={f.get("uid")}>{f.get("name")}, {f.get("geometry")[0]}, </li>));
+  var listItems = parentFeature.map((f) => (<li key={f.get("uid")}>{f.get("name")}, {f.get("geometry")[0]}, </li>));
 
   
 
@@ -100,7 +100,7 @@ const App = () => {
                 </div>
                 <div>
 
-
+                  {listItems}
                 </div>
                 <div className="results">
                   <pre>
