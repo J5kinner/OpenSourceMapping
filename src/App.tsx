@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Button } from "antd";
 import Map from "./components/Map";
 import "ol/ol.css";
@@ -10,16 +10,28 @@ import GeoJSON from "./components/GeoJSON";
 //Formik
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
 
-
+function GetFeature(buttonName: String) {
+  switch (buttonName) {
+    case "points":
+      return <AddnDelete />;
+    case "polygons":
+      return <DrawnModify />;
+    case "upload":
+      return <GeoJSON />;
+    default:
+      return <Map />;
+  }
+}
 
 function App() {
-  const [feature, setFeature] = useState('');
+  const [feature, setFeature] = useState("");
 
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-  
-  const button: HTMLButtonElement = event.currentTarget;
-    setFeature(button.name);
+
+    const button: HTMLButtonElement = event.currentTarget;
+    const buttonName: string = button.name;
+    setFeature(buttonName);
   };
 
   return (
@@ -30,24 +42,65 @@ function App() {
       <section className="work-section">
         <div className="split map-area">
           {/* <div className="feature"><Map /></div> */}
-          {feature !== "polygons" && feature !== "upload"
-          ? <div className="feature"><AddnDelete /></div>
-          : "No button clicked yet"}
-          {feature !== "points" && feature !== "upload"
-          ? <div className="feature"><DrawnModify /></div>
-          : <div className="feature">
-          <GeoJSON />
-        </div>}
-      
-        <div className="feature">
-            <MapForm />
-          </div> 
+          <div className="feature">{GetFeature(feature)}</div>
         </div>
+        <div className="split tool-area">
+          <div className="tool">
+            <h2>Tools</h2>
+            <Formik
+              initialValues={{
+                features: [],
+              }}
+              onSubmit={(values) => {
+                console.log(values);
+              }}
+            >
+              <Form>
+                <FieldArray name="features">
+                  {(arrayHelpers) => (
+                    <div>
+                      <Button
+                        type="primary"
+                        name="points"
+                        onClick={buttonHandler}
+                      >
+                        Add/Delete Points
+                      </Button>
+                      <Button
+                        type="primary"
+                        name="lines"
+                        onClick={buttonHandler}
+                      >
+                        Draw/Modify Lines
+                      </Button>
+                      <Button
+                        type="primary"
+                        name="polygons"
+                        onClick={buttonHandler}
+                      >
+                        Draw GeoJSON Polygons
+                      </Button>
+                    </div>
+                  )}
+                </FieldArray>
+              </Form>
+            </Formik>
+          </div>
+        </div>
+
+        {/* <div className="feature">
+            <MapForm /> */}
         <div className="split toolset">
           <div className="button-tools">
-            <button name="points" type="submit" onClick={buttonHandler}>Add/Remove Points</button>
-            <button name="polygons" type="submit" onClick={buttonHandler}>Draw/Modify Map</button>
-            <button name="upload" type="submit" onClick={buttonHandler}>Upload BaseMap</button>
+            <button name="points" type="submit" onClick={buttonHandler}>
+              Add/Remove Points
+            </button>
+            <button name="polygons" type="submit" onClick={buttonHandler}>
+              Draw/Modify Map
+            </button>
+            <button name="upload" type="submit" onClick={buttonHandler}>
+              Upload BaseMap
+            </button>
           </div>
           <div className="results">
             <pre>
