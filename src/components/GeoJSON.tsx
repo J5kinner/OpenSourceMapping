@@ -7,8 +7,6 @@ import { RMap, ROSM, RLayerVector, RStyle } from "rlayers";
 
 import geojsonFeatures from "./data/geo.json";
 
-import FileUploadButton from "./FileUploadButton";
-
 export default function Features(): JSX.Element {
   const [flow, setFlow] = React.useState([]);
   const [fileSelected, setFileSelected] = React.useState<File>() // also tried <string | Blob>
@@ -36,7 +34,6 @@ export default function Features(): JSX.Element {
        <input type="file" onChange={ (e) => this.handleFileChange(e.target.files) } />
         <ROSM />
         {/* From a static file included at bundling time */}
-        {/* (this won't work in CodePen) */}
         <RLayerVector
           zIndex={10}
           features={new GeoJSON({

@@ -3,6 +3,7 @@ import { Button } from "antd";
 import Map from "./components/Map";
 import "ol/ol.css";
 import "./css/App.css";
+
 import AddnDelete from "./components/AddnDelete";
 import DrawnModify from "./components/DrawnModify";
 import GeoJSON from "./components/GeoJSON";
@@ -23,12 +24,11 @@ function GetFeature(buttonName: String) {
   }
 }
 
-function App() {
+const App = () => {
   const [feature, setFeature] = useState("");
 
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-
     const button: HTMLButtonElement = event.currentTarget;
     const buttonName: string = button.name;
     setFeature(buttonName);
@@ -40,156 +40,75 @@ function App() {
         <h1>Mapping Pro</h1>
       </header>
       <section className="work-section">
-        <div className="split map-area">
-          {/* <div className="feature"><Map /></div> */}
-          <div className="feature">{GetFeature(feature)}</div>
-        </div>
-        <div className="split tool-area">
-          <div className="tool">
-            <h2>Tools</h2>
-            <Formik
-              initialValues={{
-                features: [],
-              }}
-              onSubmit={(values) => {
-                console.log(values);
-              }}
-            >
-              <Form>
-                <FieldArray name="features">
-                  {(arrayHelpers) => (
-                    <div>
-                      <Button
-                        type="primary"
-                        name="points"
-                        onClick={buttonHandler}
-                      >
-                        Add/Delete Points
+        <Formik
+          initialValues={{
+            points: {},
+            polygon: {},
+            linestring: {},
+          }}
+          onSubmit={(values: any, actions: any) => {
+            console.log(values);
+          }}
+        >
+          {(formProps) => (
+            <div className="split map-area">
+              <h2>Tools</h2>
+              <div className="feature">
+                {GetFeature(feature)}
+                <div className="split tool-area">
+                  <div className="tool">
+                    {/* <Form>
+                      <p>
+                        First button does not specify featureType so defaults to
+                        Point, center is defined
+                      </p>
+                      <Field
+                        label="This label was set explicitly"
+                        name="point"
+                        center={center}
+                        component={MapFormField}
+                      />
+                      
+                      <p>Specify center position and featureType: Point</p>
+                      <Field
+                        name="point"
+                        center={center}
+                        featureType="Point"
+                        component={MapFormField}
+                      />
+                  
+                      <p></p>
+                      <Button color="primary" type="link">
+                        Submit
                       </Button>
-                      <Button
-                        type="primary"
-                        name="lines"
-                        onClick={buttonHandler}
-                      >
-                        Draw/Modify Lines
-                      </Button>
-                      <Button
-                        type="primary"
-                        name="polygons"
-                        onClick={buttonHandler}
-                      >
-                        Draw GeoJSON Polygons
-                      </Button>
-                    </div>
-                  )}
-                </FieldArray>
-              </Form>
-            </Formik>
-          </div>
-        </div>
-
-        {/* <div className="feature">
-            <MapForm /> */}
-        <div className="split toolset">
-          <div className="button-tools">
-            <button name="points" type="submit" onClick={buttonHandler}>
-              Add/Remove Points
-            </button>
-            <button name="polygons" type="submit" onClick={buttonHandler}>
-              Draw/Modify Map
-            </button>
-            <button name="upload" type="submit" onClick={buttonHandler}>
-              Upload BaseMap
-            </button>
-          </div>
-          <div className="results">
-            <pre>
-              <p>Results</p> {/* {JSON.stringify(formProps.values, null, 2)} */}
-            </pre>
-          </div>
-        </div>
+                    </Form> */}
+                  </div>
+                </div>
+              </div>
+              <div className="split toolset">
+                <div className="button-tools">
+                  <button name="points" type="submit" onClick={buttonHandler}>
+                    Add/Remove Points
+                  </button>
+                  <button name="polygons" type="submit" onClick={buttonHandler}>
+                    Draw/Modify Map
+                  </button>
+                  <button name="upload" type="submit" onClick={buttonHandler}>
+                    Upload BaseMap
+                  </button>
+                </div>
+                <div className="results">
+                  <pre>
+                    <p>Results</p> {JSON.stringify(formProps.values, null, 2)}
+                  </pre>
+                </div>
+              </div>
+            </div>
+          )}
+        </Formik>
       </section>
     </div>
   );
-}
-
-const MapForm = () => (
-  <div>
-    <h1>Invite friends</h1>
-    <Formik
-      initialValues={{
-        friends: [
-          {
-            name: "",
-            email: "",
-          },
-        ],
-      }}
-      onSubmit={async (values) => {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(values, null, 2));
-      }}
-    >
-      {({ values }) => (
-        <Form>
-          <FieldArray name="friends">
-            {({ insert, remove, push }) => (
-              <div>
-                {values.friends.length > 0 &&
-                  values.friends.map((friend, index) => (
-                    <div className="row" key={index}>
-                      <div className="col">
-                        <label htmlFor={`friends.${index}.name`}>Name</label>
-                        <Field
-                          name={`friends.${index}.name`}
-                          placeholder="Jane Doe"
-                          type="text"
-                        />
-                        <ErrorMessage
-                          name={`friends.${index}.name`}
-                          component="div"
-                          className="field-error"
-                        />
-                      </div>
-                      <div className="col">
-                        <label htmlFor={`friends.${index}.email`}>Email</label>
-                        <Field
-                          name={`friends.${index}.email`}
-                          placeholder="jane@acme.com"
-                          type="email"
-                        />
-                        <ErrorMessage
-                          name={`friends.${index}.name`}
-                          component="div"
-                          className="field-error"
-                        />
-                      </div>
-                      <div className="col">
-                        <button
-                          type="button"
-                          className="secondary"
-                          onClick={() => remove(index)}
-                        >
-                          X
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                <button
-                  type="button"
-                  className="secondary"
-                  onClick={() => push({ name: "", email: "" })}
-                >
-                  Add Friend
-                </button>
-              </div>
-            )}
-          </FieldArray>
-          <button type="submit">Invite</button>
-        </Form>
-      )}
-    </Formik>
-  </div>
-);
+};
 
 export default App;
