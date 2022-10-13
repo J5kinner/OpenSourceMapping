@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { fromLonLat, transform } from "ol/proj";
 import { Point } from "ol/geom";
 import { Feature } from "ol";
@@ -16,15 +16,13 @@ let unique_id = 0;
 
 interface AddnDeleteProps {
   listItems: any;
-  updateFeature: (arg: any) => void
+  updateFeature: (arg: any) => void;
 }
 
-
-function AddnDelete({listItems, updateFeature}): JSX.Element {
+function AddnDelete({ listItems, updateFeature }): JSX.Element {
   // The features must be part of the state as they will be modified
 
   const [features, setFeatures] = React.useState(() =>
-
     Object.keys(coords).map(
       (f) =>
         new Feature({
@@ -32,21 +30,26 @@ function AddnDelete({listItems, updateFeature}): JSX.Element {
           name: f,
           uid: unique_id++,
         })
-    ),
-
+    )
   );
 
   const vectorRef = React.useRef() as React.RefObject<RLayerVector>;
   useEffect(() => {
     setFeatures(features);
-
   }, [features]);
-  listItems = features.map((f) => (<li key={f.get("uid")}>{f.get("name")}, {f.get("geometry")[0]}, </li>));
+ 
+let coordinates = features.map((f) =>
+    transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
+  );
+  
+  listItems = features.map((f) => (
+    
+    <li key={f.get("uid")}>
+      {f.get("name")}, {coordinates[0][0]},{coordinates[0][1]}{" "}
+    </li>
+  ));
 
- let coordinates = features.map((f) => (f.getGeometry().getCoordinates()));
-
- console.log(transform(coordinates[0], 'EPSG:3857', 'EPSG:4326'));
-
+  console.log(coordinates[0]);
 
   return (
     <React.Fragment>
@@ -58,10 +61,9 @@ function AddnDelete({listItems, updateFeature}): JSX.Element {
           const coords = e.map.getCoordinateFromPixel(e.pixel);
           // console.log(e.pixel)
           // console.log(coords)
-          
+
           features.push(
             new Feature({ geometry: new Point(coords), uid: unique_id++ })
-            
           );
           // Why not setFeatures(features) ?
           // Because it won't have any effect -
@@ -109,11 +111,9 @@ function AddnDelete({listItems, updateFeature}): JSX.Element {
       <div className="mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow shadow">
         <p>
           Click an empty space to add a monument or click a monument to delete
-          it. 
+          it.
         </p>
         <p>{listItems}</p>
-
-        
       </div>
     </React.Fragment>
   );
