@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "antd";
+import { Button, Cascader } from "antd";
 import Map from "./components/Map";
 import "ol/ol.css";
 import "./css/App.css";
@@ -20,7 +20,7 @@ const App = () => {
   const [feature, setFeature] = useState("");
 
 
-  const updateFeature = (features: any ): void => {
+  const updateFeature = (features: any, ): void => {
     setParentFeature(features)
   }
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,14 +32,15 @@ const App = () => {
 
   function GetFeature(buttonName: String) {
     switch (buttonName) {
-      case "points":
-        return <AddnDelete listItems={parentFeature} updateFeature={updateFeature}/>;
       case "polygons":
         return <DrawnModify />;
       case "upload":
         return <GeoJSON />;
+      case "points":
+        return <AddnDelete listItems={parentFeature} updateFeature={updateFeature}/>;
       default:
-        return <Map />;
+        return <AddnDelete listItems={parentFeature} updateFeature={updateFeature}/>;
+
     }
   }
   var listItems = parentFeature.map((f) => (<li key={f.get("uid")}>{f.get("name")}, {f.get("geometry")[0]}, </li>));

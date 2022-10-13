@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { fromLonLat } from "ol/proj";
+import { fromLonLat, transform } from "ol/proj";
 import { Point } from "ol/geom";
 import { Feature } from "ol";
 import { Coordinate } from "ol/coordinate";
@@ -9,11 +9,7 @@ import monument from "./svg/monument.svg";
 import { RMap, ROSM, RLayerVector, RStyle, RFeature, ROverlay } from "rlayers";
 
 export const coords: Record<string, Coordinate> = {
-  "Arc de Triomphe": [2.295, 48.8737],
-  "Place d'Italie": [2.355, 48.831],
-  Bastille: [2.369, 48.853],
   "Tour Eiffel": [2.294, 48.858],
-  Montmartre: [2.342, 48.887],
 };
 
 let unique_id = 0;
@@ -47,6 +43,9 @@ function AddnDelete({listItems, updateFeature}): JSX.Element {
   }, [features]);
   listItems = features.map((f) => (<li key={f.get("uid")}>{f.get("name")}, {f.get("geometry")[0]}, </li>));
 
+ let coordinates = features.map((f) => (f.getGeometry().getCoordinates()));
+
+ console.log(transform(coordinates[0], 'EPSG:3857', 'EPSG:4326'));
 
 
   return (
@@ -57,8 +56,12 @@ function AddnDelete({listItems, updateFeature}): JSX.Element {
         initial={{ center: fromLonLat([2.364, 48.82]), zoom: 11 }}
         onClick={(e) => {
           const coords = e.map.getCoordinateFromPixel(e.pixel);
+          // console.log(e.pixel)
+          // console.log(coords)
+          
           features.push(
             new Feature({ geometry: new Point(coords), uid: unique_id++ })
+            
           );
           // Why not setFeatures(features) ?
           // Because it won't have any effect -
