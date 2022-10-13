@@ -34,22 +34,26 @@ function AddnDelete({ listItems, updateFeature }): JSX.Element {
   );
 
   const vectorRef = React.useRef() as React.RefObject<RLayerVector>;
+  // Added to update parent with new features
   useEffect(() => {
     setFeatures(features);
   }, [features]);
- 
-let coordinates = features.map((f) =>
-    transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
-  );
   
-  listItems = features.map((f) => (
-    
+  // Passing Coordinates to parent
+  listItems = features.map((f, i) => {
+    // Convert feature points from EPSG:3857 to EPSG:4326
+  let coordinates = features.map((f) =>
+  transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
+);
+    return (
     <li key={f.get("uid")}>
-      {f.get("name")}, {coordinates[0][0]},{coordinates[0][1]}{" "}
+      {f.get("name")}, {coordinates[i][0]},{coordinates[i][1]}{" "}
     </li>
-  ));
+  )
+  
+});
 
-  console.log(coordinates[0]);
+  // console.log(coordinates[0]);
 
   return (
     <React.Fragment>
@@ -113,7 +117,7 @@ let coordinates = features.map((f) =>
           Click an empty space to add a monument or click a monument to delete
           it.
         </p>
-        <p>{listItems}</p>
+       {/* <p>{listItems}</p> */}
       </div>
     </React.Fragment>
   );

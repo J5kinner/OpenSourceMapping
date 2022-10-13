@@ -14,6 +14,7 @@ import { Feature } from "ol";
 
 //Formik
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
+import { transform } from "ol/proj";
 
 const App = () => {
   const [parentFeature, setParentFeature] = useState([]);
@@ -43,8 +44,19 @@ const App = () => {
 
     }
   }
-  var listItems = parentFeature.map((f) => (<li key={f.get("uid")}>{f.get("name")}, {f.get("geometry")[0]}, </li>));
+// Passing Coordinates to parent
+const listItems = parentFeature.map((f, i) => {
+  // Convert feature points from EPSG:3857 to EPSG:4326
+let coordinates = parentFeature.map((f) =>
+transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
+);
+  return (
+  <li key={f.get("uid")}>
+    {f.get("name")}, {coordinates[i][0].toFixed(2)},{coordinates[i][1].toFixed(2)}{" "}
+  </li>
+)
 
+});
   
 
   return (
