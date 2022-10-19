@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, FormProps } from "antd";
 import "ol/ol.css";
 import React, { useState } from "react";
 import "./css/App.css";
@@ -10,6 +10,7 @@ import GeoJSON from "./components/GeoJSON";
 //Formik
 import { Field, Form, Formik } from "formik";
 import { transform } from "ol/proj";
+import { MapFormField } from "./MapFormField";
 
 interface MyFormValues {
   point: any;
@@ -44,13 +45,15 @@ const App = () => {
     );
   });
 
+ 
+
   const GetFeature = (buttonName: String) => {
     switch (buttonName) {
       case "polygons":
         return (
           <div>
             <DrawnModify />{" "}
-            <Field label="This label was set explicitly" name="point" />
+            <Field label="This label was set explicitly" name="point"/>
             {listItems}
             <button color="primary" type="submit">
               Submit
@@ -80,8 +83,7 @@ const App = () => {
               listItems={parentFeature}
               updateFeature={updateFeature}
             />
-            <Field label="This label was set explicitly" name="point" />
-            {listItems}
+            <Field id="point" name="point" value={listItems}/>
             <button color="primary" type="submit">
               Submit
             </button>
@@ -103,7 +105,8 @@ const App = () => {
             linestring: {},
           }}
           onSubmit={(values: any, actions: any) => {
-            console.log(values);
+            console.info(values.point);
+
             actions.setSubmitting(false);
           }}
         >
