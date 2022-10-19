@@ -1,63 +1,94 @@
-import React, { useState } from "react";
-import { Button, Cascader } from "antd";
-import Map from "./components/Map";
+import { Button } from "antd";
 import "ol/ol.css";
+import React, { useState } from "react";
 import "./css/App.css";
 
 import AddnDelete from "./components/AddnDelete";
 import DrawnModify from "./components/DrawnModify";
 import GeoJSON from "./components/GeoJSON";
-import { Coordinate } from "ol/coordinate";
-import { Feature } from "ol";
-
-
 
 //Formik
-import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
+import { Field, Form, Formik } from "formik";
 import { transform } from "ol/proj";
+
+interface MyFormValues {
+  point: any;
+}
 
 const App = () => {
   const [parentFeature, setParentFeature] = useState([]);
-  const [feature, setFeature] = useState("");
+  const [mapType, setMapType] = useState("");
 
-
-  const updateFeature = (features: any, ): void => {
-    setParentFeature(features)
-  }
+  const updateFeature = (features: any): void => {
+    setParentFeature(features);
+  };
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
     const buttonName: string = button.name;
-    setFeature(buttonName);
+    setMapType(buttonName);
   };
 
-  function GetFeature(buttonName: String) {
+  /*
+   * Passing Coordinates to parent
+   * Returns Converted feature points from EPSG:3857 to EPSG:4326
+   */
+  const listItems = parentFeature.map((f, i) => {
+    let coordinates = parentFeature.map((f) =>
+      transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
+    );
+    return (
+      <li key={f.get("uid")}>
+        {coordinates[i][0].toFixed(2)},{coordinates[i][1].toFixed(2)}{" "}
+      </li>
+    );
+  });
+
+  const GetFeature = (buttonName: String) => {
     switch (buttonName) {
       case "polygons":
-        return <DrawnModify />;
+        return (
+          <div>
+            <DrawnModify />{" "}
+            <Field label="This label was set explicitly" name="point" />
+            {listItems}
+            <button color="primary" type="submit">
+              Submit
+            </button>
+          </div>
+        );
       case "upload":
         return <GeoJSON />;
       case "points":
-        return <AddnDelete listItems={parentFeature} updateFeature={updateFeature}/>;
+        return (
+          <div>
+            <AddnDelete
+              listItems={parentFeature}
+              updateFeature={updateFeature}
+            />
+            <Field label="This label was set explicitly" name="point" />
+            {listItems}
+            <button color="primary" type="submit">
+              Submit
+            </button>
+          </div>
+        );
       default:
-        return <AddnDelete listItems={parentFeature} updateFeature={updateFeature}/>;
-
+        return (
+          <div>
+            <AddnDelete
+              listItems={parentFeature}
+              updateFeature={updateFeature}
+            />
+            <Field label="This label was set explicitly" name="point" />
+            {listItems}
+            <button color="primary" type="submit">
+              Submit
+            </button>
+          </div>
+        );
     }
-  }
-// Passing Coordinates to parent
-const listItems = parentFeature.map((f, i) => {
-  // Convert feature points from EPSG:3857 to EPSG:4326
-let coordinates = parentFeature.map((f) =>
-transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
-);
-  return (
-  <li key={f.get("uid")}>
-    {f.get("name")}, {coordinates[i][0].toFixed(2)},{coordinates[i][1].toFixed(2)}{" "}
-  </li>
-)
-
-});
-  
+  };
 
   return (
     <div className="App">
@@ -73,30 +104,19 @@ transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
           }}
           onSubmit={(values: any, actions: any) => {
             console.log(values);
+            actions.setSubmitting(false);
           }}
         >
           {(formProps) => (
             <div className="split map-area">
               <h2>Tools</h2>
               <div className="feature">
-                {GetFeature(feature)}
+                <Form>
+                  <p></p>
+                  {GetFeature(mapType)}
+                </Form>
                 <div className="split tool-area">
-                  <div className="tool">
-                    <Form>
-                  
-                      {/* <Field
-                        label="This label was set explicitly"
-                        name="point"
-                        component={AddnDelete}
-                      /> */}
-                    
-                  
-                      <p></p>
-                      <Button color="primary" type="link">
-                        Submit
-                      </Button>
-                    </Form>
-                  </div>
+                  <div className="tool"></div>
                 </div>
               </div>
               <div className="split toolset">
@@ -111,15 +131,11 @@ transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
                     Upload BaseMap
                   </button>
                 </div>
-                <div>
-
-                  {listItems}
-                </div>
+                <div>{listItems}</div>
                 <div className="results">
                   <pre>
                     <p>Results</p> {JSON.stringify(formProps.values, null, 2)}
-                    <p>Child Results: {JSON.stringify(parentFeature)}</p>
-
+                
                   </pre>
                 </div>
               </div>

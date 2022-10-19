@@ -9,14 +9,17 @@ The results are that GeoMoose and Leaflet performed poorly in comparison to open
 ### Weeks 7-13
 The aim is to build the main functionality of the application. This includes: `The Plan` content below which can be summarised as mapping capabilities, offline capabilities and eventually packaging the application for use in FAIMS.
 # The Plan
-- [ ]  Implement the main UI from [figma](https://www.figma.com/file/Mi1rOnJrmOvQbkW3S5J6gL/Thesis-Mockup?node-id=0%3A1)
-- [ ]  Build the map for the main UI
+- [x]  Implement the main UI from [figma](https://www.figma.com/file/Mi1rOnJrmOvQbkW3S5J6gL/Thesis-Mockup?node-id=0%3A1)
+- [x]  Build the map for the main UI
 ### Implement Steve's features including: 
 - [x]  Buttons to draw geoJson points, lines and polygons
 - [ ]  Implement formik format 
 
 ### Implement requirements from the thesis:
 - [ ]  Load GeoJson from a file before user input 
+- [x]  Implement points
+- [x]  Implement polygons
+- [x]  Implement lines
 - [ ]  Implement symbology (aka colour picker for points, lines and polygons)
 
 ### Offline Capabilities:
