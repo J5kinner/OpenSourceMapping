@@ -13,10 +13,9 @@ The aim is to build the main functionality of the application. This includes: `T
 - [x]  Build the map for the main UI
 ### Implement Steve's features including: 
 - [x]  Buttons to draw geoJson points, lines and polygons
-- [ ]  Implement formik format 
 
 ### Implement requirements from the thesis:
-- [ ]  Load GeoJson from a file before user input 
+- [ ]  Create, Upload and Delete GeoJSON files
 - [x]  Implement points
 - [x]  Implement polygons
 - [x]  Implement lines
