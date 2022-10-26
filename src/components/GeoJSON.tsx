@@ -5,7 +5,7 @@ import "ol/ol.css";
 
 import { RMap, ROSM, RLayerVector, RStyle } from "rlayers";
 
-import geojsonFeatures from "./data/geo.json";
+import geojsonFeatures from "./data/fiveHundredThou_test.json";
 
 export default function Features(): JSX.Element {
   const [flow, setFlow] = React.useState([]);

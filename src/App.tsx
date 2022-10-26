@@ -1,24 +1,24 @@
-import { Button, FormProps } from "antd";
-import "ol/ol.css";
-import React, { useState } from "react";
-import "./css/App.css";
+import './css/App.css';
+import 'ol/ol.css';
 
-import AddnDelete from "./components/AddnDelete";
-import DrawnModify from "./components/DrawnModify";
-import GeoJSON from "./components/GeoJSON";
+import { Field, Form, Formik } from 'formik';
+import { createStringXY } from 'ol/coordinate';
+import { transform } from 'ol/proj';
+import { getUid } from 'ol/util';
+import React, { useEffect, useState } from 'react';
+
+
+import AddnDelete from './components/AddnDelete';
+import DrawnModify from './components/DrawnModify';
+import GeoJSONMap from './components/GeoJSON';
 
 //Formik
-import { Field, Form, Formik } from "formik";
-import { transform } from "ol/proj";
-import { MapFormField } from "./MapFormField";
-
-interface MyFormValues {
-  point: any;
-}
 
 const App = () => {
   const [parentFeature, setParentFeature] = useState([]);
   const [mapType, setMapType] = useState("");
+
+
 
   const updateFeature = (features: any): void => {
     setParentFeature(features);
@@ -30,20 +30,30 @@ const App = () => {
     setMapType(buttonName);
   };
 
-  /*
-   * Passing Coordinates to parent
-   * Returns Converted feature points from EPSG:3857 to EPSG:4326
-   */
+  const stringifyFunc = createStringXY(2);
+
   const listItems = parentFeature.map((f, i) => {
     let coordinates = parentFeature.map((f) =>
       transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
     );
+    const arr = [coordinates[i][0], coordinates[i][1]];
+    
+    const out = stringifyFunc(arr);
+    console.log(out);
+    
+
     return (
       <li key={f.get("uid")}>
         {coordinates[i][0].toFixed(2)},{coordinates[i][1].toFixed(2)}{" "}
       </li>
     );
   });
+
+console.log(getUid(parentFeature));
+//perhaps there are other methods to get data?
+console.log(parentFeature);
+
+
 
  
 
@@ -61,7 +71,7 @@ const App = () => {
           </div>
         );
       case "upload":
-        return <GeoJSON />;
+        return <GeoJSONMap />;
       case "points":
         return (
           <div>
@@ -83,8 +93,8 @@ const App = () => {
               listItems={parentFeature}
               updateFeature={updateFeature}
             />
-            <Field id="point" name="point" value={listItems}/>
-            <button color="primary" type="submit">
+            {/* <Field id="point" name="point" value={listItems}/> */}
+            <button color="primary" type="submit" >
               Submit
             </button>
           </div>
