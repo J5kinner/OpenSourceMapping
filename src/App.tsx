@@ -87,25 +87,26 @@ console.log(parentFeature);
           </div>
         );
       default:
-        return (
-          <div>
-            <AddnDelete
-              listItems={parentFeature}
-              updateFeature={updateFeature}
-            />
-            {/* <Field id="point" name="point" value={listItems}/> */}
-            <button color="primary" type="submit" >
-              Submit
-            </button>
-          </div>
-        );
+        return <GeoJSONMap />;
+        // return (
+        //   <div>
+        //     <AddnDelete
+        //       listItems={parentFeature}
+        //       updateFeature={updateFeature}
+        //     />
+        //     {/* <Field id="point" name="point" value={listItems}/> */}
+        //     <button color="primary" type="submit" >
+        //       Submit
+        //     </button>
+        //   </div>
+        // );
     }
   };
 
   return (
     <div className="App">
       <header className="tool-header">
-        <h1>Mapping Pro</h1>
+        <h1>Mapping Test</h1>
       </header>
       <section className="work-section">
         <Formik

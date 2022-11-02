@@ -1,7 +1,25 @@
 {
   "name": "mapping-thesis",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Mapping Software Created using OpenLayers for thesis project",
+  "main": "src/index.tsx",
+  "bin": "src/index.tsx",
+  "keywords": [
+    "mapping",
+    "openlayers",
+    "react",
+    "typescript"
+  ],
+  "author": "Jonah Skinner",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/J5kinner/OpenSourceMapping.git"
+  },
+  "bugs": {
+    "url": "https://github.com/J5kinner/OpenSourceMapping/issues"
+  },
+  "homepage": "https://github.com/J5kinner/OpenSourceMapping/blob/main/README.md",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
