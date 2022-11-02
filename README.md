@@ -44,3 +44,7 @@ The aim is to build the main functionality of the application. This includes: `T
 ## Check for unused dependencies
 `npm-check` to find the unused packages
 `npm uninstall <package_name>` remove the package and module folder
+
+# NPM Packaging 
+`npm login` to login to npm
+`npm publish` to publish the package to npm but make sure to increment the version number in `package.json` first
