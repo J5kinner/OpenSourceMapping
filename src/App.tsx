@@ -9,8 +9,8 @@ import React, { useEffect, useState } from 'react';
 
 
 import AddnDelete from './components/AddnDelete';
-import DrawnModify from './components/DrawnModify';
-import GeoJSONMap from './components/GeoJSON';
+import DrawnModify from './components/DrawModifyQuery';
+import GeoJSONMap from './components/GeoJSONHandler';
 
 //Formik
 
