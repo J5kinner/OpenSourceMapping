@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fromLonLat, transform } from "ol/proj";
+import { fromLonLat } from "ol/proj";
 import { Point } from "ol/geom";
 import { Feature } from "ol";
 import { Coordinate } from "ol/coordinate";
@@ -14,10 +14,10 @@ export const coords: Record<string, Coordinate> = {
 
 let unique_id = 0;
 
-interface AddnDeleteProps {
-  listItems: any;
-  updateFeature: (arg: any) => void;
-}
+// interface AddnDeleteProps {
+//   listItems: any;
+//   updateFeature: (arg: any) => void;
+// }
 
 function AddnDelete({ listItems, updateFeature }): JSX.Element {
   // The features must be part of the state as they will be modified

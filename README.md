@@ -1,6 +1,26 @@
 # OpenSourceMapping
 A repo for testing open source solutions for my thesis on associated branches. The winner will be on the main branch
 
+# How to run the project
+`npm install` to install all the dependencies
+`npm start` to start the project
+
+# CI/CD
+## Tests
+`/src/tests` contains all the tests for the application. These are run using `npm test` and are run on every push to the repo.
+## Check for unused dependencies
+`npm-check` to find the unused packages
+`npm uninstall <package_name>` remove the package and module folder
+
+# NPM Packaging 
+`npm login` to login to npm
+`npm publish` to publish the package to npm but make sure to increment the version number in `package.json` first
+
+# Capacitor
+`npx cap sync`
+
+Make sure to remove the homepage link inside the package.json because it interferes with the npx suite when developing capacitor apps
+
 # What has happened so far
 ### Weeks 1-6
 Implemented GeoMoose, OpenLayers and Leaflet for the purpose of being able to upload geojson and stress test each of them until failure. 
@@ -34,17 +54,3 @@ The aim is to build the main functionality of the application. This includes: `T
 - [ ]  Automate regression tests
 - [ ]  Maintain benchmarking 
 
-# How to run the project
-`npm install` to install all the dependencies
-`npm start` to start the project
-
-# CI/CD
-## Tests
-`/src/tests` contains all the tests for the application. These are run using `npm test` and are run on every push to the repo.
-## Check for unused dependencies
-`npm-check` to find the unused packages
-`npm uninstall <package_name>` remove the package and module folder
-
-# NPM Packaging 
-`npm login` to login to npm
-`npm publish` to publish the package to npm but make sure to increment the version number in `package.json` first

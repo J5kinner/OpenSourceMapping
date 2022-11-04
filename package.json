@@ -1,6 +1,6 @@
 {
   "name": "mapping-thesis",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Mapping Software Created using OpenLayers for thesis project",
   "main": "src/index.tsx",
   "bin": "src/index.tsx",
@@ -19,8 +19,11 @@
   "bugs": {
     "url": "https://github.com/J5kinner/OpenSourceMapping/issues"
   },
-  "homepage": "https://github.com/J5kinner/OpenSourceMapping/blob/main/README.md",
+
   "dependencies": {
+    "@capacitor/android": "^4.4.0",
+    "@capacitor/core": "^4.4.0",
+    "@capacitor/ios": "^4.4.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.4.3",
@@ -62,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^4.4.0"
   }
 }

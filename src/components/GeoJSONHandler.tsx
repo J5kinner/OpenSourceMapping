@@ -9,14 +9,14 @@ import geojsonFeatures from "./data/tenthou_points.json";
 
 export default function Features(): JSX.Element {
   const [flow, setFlow] = React.useState([]);
-  const [fileSelected, setFileSelected] = React.useState<File>(); // also tried <string | Blob>
-  const handleFileChange = function (e: React.ChangeEvent<HTMLInputElement>) {
-    const fileList = e.target.files;
+  const [fileSelected] = React.useState<File>(); // also tried <string | Blob>
+  // const handleFileChange = function (e: React.ChangeEvent<HTMLInputElement>) {
+  //   const fileList = e.target.files;
 
-    if (!fileList) return;
+  //   if (!fileList) return;
 
-    setFileSelected(fileList[0]);
-  };
+  //   setFileSelected(fileList[0]);
+  // };
 
   const uploadFile = function (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>
@@ -34,27 +34,27 @@ export default function Features(): JSX.Element {
     console.log(file.size)
   };
 
-  const handleSubmit = (event) => {
-    // Stop the form from reloading the page
-    event.preventDefault();
+  // const handleSubmit = (event) => {
+  //   // Stop the form from reloading the page
+  //   event.preventDefault();
 
-    // If there's no file, do nothing
-    if (!event.value.size) return;
+  //   // If there's no file, do nothing
+  //   if (!event.value.size) return;
 
-    // Create a new FileReader() object
-    let reader = new FileReader();
+  //   // Create a new FileReader() object
+  //   let reader = new FileReader();
 
-    reader.readAsText(event.files[0]);
+  //   reader.readAsText(event.files[0]);
 
-    // Setup the callback event to run when the file is read
-    const loaded = reader.onload;
-    const loading = (event) =>{
-      let str = event.target.result;
-      let json = JSON.parse(str);
-      console.log("string", str);
-      console.log("json", json);
-    }
-    loading(loaded)
+  //   // Setup the callback event to run when the file is read
+  //   const loaded = reader.onload;
+  //   const loading = (event) =>{
+  //     let str = event.target.result;
+  //     let json = JSON.parse(str);
+  //     console.log("string", str);
+  //     console.log("json", json);
+  //   }
+  //   loading(loaded)
     
 
     // Read the file
@@ -75,7 +75,7 @@ export default function Features(): JSX.Element {
     // }
 
     // fr.readAsText(files.item(0));
-  };
+  // };
 
   return (
     <div className="d-flex flex-row">
@@ -84,13 +84,7 @@ export default function Features(): JSX.Element {
         initial={{ center: fromLonLat([2.364, 48.82]), zoom: 5 }}
         height={"300px"}
       >
-        <input
-          type="file"
-          onChange={(e) => this.handleFileChange(e.target.files)}
-
-        />
-          <label>File to upload</label>
-          <input type="file" id="file" accept=".json" onClick={(e) => uploadFile(e)} />
+       
 
 
         <ROSM />
@@ -139,6 +133,14 @@ export default function Features(): JSX.Element {
           }}
         />
       </div>
+
+       {/* <input
+          type="file"
+          onChange={(e) => this.handleFileChange(e.target.files)}
+
+        /> */}
+          <label>File to upload</label>
+          <input type="file" id="file" accept=".json" onClick={(e) => uploadFile(e)} />
       {/* <input type="file" id="selectFiles" value="Import" />
       <br /> */}
       {/* <button id="import">Import</button>

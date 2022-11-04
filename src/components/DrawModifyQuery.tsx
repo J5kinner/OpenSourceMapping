@@ -32,7 +32,7 @@ export default function Interactions(): JSX.Element {
       <RMap
         className="example-map"
         initial={{ center: fromLonLat([2.364, 48.82]), zoom: 11 }}
-        height={"300px"}
+        height={"400px"}
       >
         <ROSM />
 

@@ -5,12 +5,13 @@ import { Field, Form, Formik } from 'formik';
 import { createStringXY } from 'ol/coordinate';
 import { transform } from 'ol/proj';
 import { getUid } from 'ol/util';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 
 import AddnDelete from './components/AddnDelete';
 import DrawnModify from './components/DrawModifyQuery';
 import GeoJSONMap from './components/GeoJSONHandler';
+import GeoLocator from './components/GeoLocator';
 
 //Formik
 
@@ -59,6 +60,12 @@ console.log(parentFeature);
 
   const GetFeature = (buttonName: String) => {
     switch (buttonName) {
+      case "location":
+        return (
+          <div>
+          <GeoLocator />
+          </div>
+        ) 
       case "polygons":
         return (
           <div>
@@ -106,9 +113,14 @@ console.log(parentFeature);
   return (
     <div className="App">
       <header className="tool-header">
-        <h1>Mapping Test</h1>
+      <div className='wordmark'>
+        <h1>Map Thesis</h1>
+        </div>
+        <div className='wordmark'>
+        <h1>Controls</h1>
+        </div>
+
       </header>
-      <section className="work-section">
         <Formik
           initialValues={{
             point: {},
@@ -123,7 +135,7 @@ console.log(parentFeature);
         >
           {(formProps) => (
             <div className="split map-area">
-              <h2>Tools</h2>
+              
               <div className="feature">
                 <Form>
                   <p></p>
@@ -136,13 +148,16 @@ console.log(parentFeature);
               <div className="split toolset">
                 <div className="button-tools">
                   <button name="points" type="submit" onClick={buttonHandler}>
-                    Add/Remove Points
+                    AddnDelete
                   </button>
                   <button name="polygons" type="submit" onClick={buttonHandler}>
-                    Draw/Modify Map
+                    DrawModifyQuery
                   </button>
                   <button name="upload" type="submit" onClick={buttonHandler}>
-                    Upload BaseMap
+                    GeoJSONHandler
+                  </button>
+                  <button name="location" type="submit" onClick={buttonHandler}>
+                    GeoLocator
                   </button>
                 </div>
                 <div>{listItems}</div>
@@ -156,7 +171,6 @@ console.log(parentFeature);
             </div>
           )}
         </Formik>
-      </section>
     </div>
   );
 };
