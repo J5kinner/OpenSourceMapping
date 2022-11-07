@@ -17,7 +17,8 @@ A repo for testing open source solutions for my thesis on associated branches. T
 `npm publish` to publish the package to npm but make sure to increment the version number in `package.json` first
 
 # Capacitor
-`npx cap sync`
+Make sure to remove the home page from the `package.json` file before building the app. This is because the home page is not a capacitor page and will cause the app to crash.
+Firstly make sure you have a fresh build of `npm run build` and then run `npx cap sync` to copy the build to the capacitor project. Then run `npx cap open android` to open the project in Android Studio. You can then run the project from there. Then you can do the same for iOS with `npx cap open ios` and then run the project from XCode.
 
 Make sure to remove the homepage link inside the package.json because it interferes with the npx suite when developing capacitor apps
 
