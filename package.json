@@ -19,7 +19,6 @@
   "bugs": {
     "url": "https://github.com/J5kinner/OpenSourceMapping/issues"
   },
-  "homepage": "https://github.com/J5kinner/OpenSourceMapping/blob/main/README.md",
   "dependencies": {
     "@capacitor/android": "^4.4.0",
     "@capacitor/core": "^4.4.0",

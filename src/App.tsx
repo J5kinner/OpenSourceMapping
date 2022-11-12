@@ -1,25 +1,22 @@
-import './css/App.css';
-import 'ol/ol.css';
+import "./css/App.css";
+import "ol/ol.css";
 
-import { Field, Form, Formik } from 'formik';
-import { createStringXY } from 'ol/coordinate';
-import { transform } from 'ol/proj';
-import { getUid } from 'ol/util';
-import React, { useState } from 'react';
+import { Field, Form, Formik } from "formik";
+import { createStringXY } from "ol/coordinate";
+import { transform } from "ol/proj";
+import { getUid } from "ol/util";
+import React, { useState } from "react";
 
-
-import AddnDelete from './components/AddnDelete';
-import DrawnModify from './components/DrawModifyQuery';
-import GeoJSONMap from './components/GeoJSONHandler';
-import GeoLocator from './components/GeoLocator';
+import AddnDelete from "./components/AddnDelete";
+import DrawnModify from "./components/DrawModifyQuery";
+import GeoJSONMap from "./components/GeoJSONHandler";
+import GeoLocator from "./components/GeoLocator";
 
 //Formik
 
 const App = () => {
   const [parentFeature, setParentFeature] = useState([]);
   const [mapType, setMapType] = useState("");
-
-
 
   const updateFeature = (features: any): void => {
     setParentFeature(features);
@@ -38,10 +35,9 @@ const App = () => {
       transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
     );
     const arr = [coordinates[i][0], coordinates[i][1]];
-    
+
     const out = stringifyFunc(arr);
     console.log(out);
-    
 
     return (
       <li key={f.get("uid")}>
@@ -50,35 +46,39 @@ const App = () => {
     );
   });
 
-console.log(getUid(parentFeature));
-//perhaps there are other methods to get data?
-console.log(parentFeature);
-
-
-
- 
+  console.log(getUid(parentFeature));
+  //perhaps there are other methods to get data?
+  console.log(parentFeature);
 
   const GetFeature = (buttonName: String) => {
     switch (buttonName) {
       case "location":
         return (
           <div>
-          <GeoLocator />
+            <GeoLocator />
+            <button className="submitButton" color="primary" type="submit">
+              Submit
+            </button>
           </div>
-        ) 
+        );
       case "polygons":
         return (
           <div>
             <DrawnModify />{" "}
-            <Field label="This label was set explicitly" name="point"/>
-            {listItems}
-            <button color="primary" type="submit">
+            <button className="submitButton" color="primary" type="submit">
               Submit
             </button>
           </div>
         );
       case "upload":
-        return <GeoJSONMap />;
+        return (
+          <div>
+            <GeoJSONMap />
+            <button className="submitButton" color="primary" type="submit">
+              Submit
+            </button>
+          </div>
+        );
       case "points":
         return (
           <div>
@@ -86,91 +86,69 @@ console.log(parentFeature);
               listItems={parentFeature}
               updateFeature={updateFeature}
             />
-            <Field label="This label was set explicitly" name="point" />
-            {listItems}
-            <button color="primary" type="submit">
+            <button className="submitButton" color="primary" type="submit">
               Submit
             </button>
           </div>
         );
       default:
         return <GeoJSONMap />;
-        // return (
-        //   <div>
-        //     <AddnDelete
-        //       listItems={parentFeature}
-        //       updateFeature={updateFeature}
-        //     />
-        //     {/* <Field id="point" name="point" value={listItems}/> */}
-        //     <button color="primary" type="submit" >
-        //       Submit
-        //     </button>
-        //   </div>
-        // );
     }
   };
 
   return (
     <div className="App">
       <header className="tool-header">
-      <div className='wordmark'>
-        <h1>Map Thesis</h1>
+        <div className="wordmark">
+          <h1>Map Thesis</h1>
         </div>
-        <div className='wordmark'>
-        <h1>Controls</h1>
+        <div className="wordmark">
+          <h1>Controls</h1>
         </div>
-
       </header>
-        <Formik
-          initialValues={{
-            point: {},
-            polygon: {},
-            linestring: {},
-          }}
-          onSubmit={(values: any, actions: any) => {
-            console.info(values.point);
+      <Formik
+        initialValues={{
+          point: {},
+          polygon: {},
+          linestring: {},
+        }}
+        onSubmit={(values: any, actions: any) => {
+          console.info(values.point);
 
-            actions.setSubmitting(false);
-          }}
-        >
-          {(formProps) => (
-            <div className="split map-area">
-              
-              <div className="feature">
-                <Form>
-                  <p></p>
-                  {GetFeature(mapType)}
-                </Form>
-                <div className="split tool-area">
-                  <div className="tool"></div>
-                </div>
-              </div>
-              <div className="split toolset">
-                <div className="button-tools">
-                  <button name="points" type="submit" onClick={buttonHandler}>
-                    AddnDelete
-                  </button>
-                  <button name="polygons" type="submit" onClick={buttonHandler}>
-                    DrawModifyQuery
-                  </button>
-                  <button name="upload" type="submit" onClick={buttonHandler}>
-                    GeoJSONHandler
-                  </button>
-                  <button name="location" type="submit" onClick={buttonHandler}>
-                    GeoLocator
-                  </button>
-                </div>
-                <div>{listItems}</div>
-                <div className="results">
-                  <pre>
-                    <p>Results</p> {JSON.stringify(formProps.values, null, 2)}
-                
-                  </pre>
-                </div>
+          actions.setSubmitting(false);
+        }}
+      >
+        {(formProps) => (
+          <div className="split map-area">
+            <div className="feature">
+              <Form>
+                <p></p>
+                {GetFeature(mapType)}
+              </Form>
+              <div className="split tool-area">
+                <div className="tool"></div>
               </div>
             </div>
-          )}
-        </Formik>
+            <div className="split toolset">
+              <div className="button-tools">
+                <button name="points" type="submit" onClick={buttonHandler}>
+                  AddnDelete
+                </button>
+                <button name="polygons" type="submit" onClick={buttonHandler}>
+                  DrawModifyQuery
+                </button>
+                <button name="upload" type="submit" onClick={buttonHandler}>
+                  GeoJSONHandler
+                </button>
+                <button name="location" type="submit" onClick={buttonHandler}>
+                  GeoLocator
+                </button>
+              </div>
+              <div>{listItems}</div>
+            </div>
+          </div>
+        )}
+      </Formik>
     </div>
   );
 };
