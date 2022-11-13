@@ -23,7 +23,6 @@ export default function Geolocation(): JSX.Element {
     <RMap
       className="example-map"
       initial={{ center: fromLonLat([0, 0]), zoom: 4 }}
-      height={"300px"}
     >
       <ROSM />
       <RGeolocation

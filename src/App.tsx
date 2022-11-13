@@ -56,27 +56,18 @@ const App = () => {
         return (
           <div>
             <GeoLocator />
-            <button className="submitButton" color="primary" type="submit">
-              Submit
-            </button>
           </div>
         );
       case "polygons":
         return (
           <div>
             <DrawnModify />{" "}
-            <button className="submitButton" color="primary" type="submit">
-              Submit
-            </button>
           </div>
         );
       case "upload":
         return (
           <div>
             <GeoJSONMap />
-            <button className="submitButton" color="primary" type="submit">
-              Submit
-            </button>
           </div>
         );
       case "points":
@@ -86,9 +77,6 @@ const App = () => {
               listItems={parentFeature}
               updateFeature={updateFeature}
             />
-            <button className="submitButton" color="primary" type="submit">
-              Submit
-            </button>
           </div>
         );
       default:
@@ -114,38 +102,71 @@ const App = () => {
         }}
         onSubmit={(values: any, actions: any) => {
           console.info(values.point);
-
           actions.setSubmitting(false);
         }}
       >
         {(formProps) => (
           <div className="split map-area">
             <div className="feature">
-              <Form>
-                <p></p>
-                {GetFeature(mapType)}
-              </Form>
-              <div className="split tool-area">
-                <div className="tool"></div>
-              </div>
+              <Form>{GetFeature(mapType)}</Form>
+
+              <section className="bottom-buttons">
+                <button className="submit-button" color="primary" type="submit">
+                  Upload
+                </button>
+                <button className="grey-button" color="primary" type="submit">
+                  Download
+                </button>
+                <button className="grey-button" color="primary" type="submit">
+                  Offline BaseMap
+                </button>
+                <button
+                  className="submit-button"
+                  name="location"
+                  type="submit"
+                  onClick={buttonHandler}
+                >
+                  My Location
+                </button>
+              </section>
             </div>
             <div className="split toolset">
               <div className="button-tools">
-                <button name="points" type="submit" onClick={buttonHandler}>
+                <button
+                  className="control-button"
+                  name="points"
+                  type="submit"
+                  onClick={buttonHandler}
+                >
                   AddnDelete
                 </button>
-                <button name="polygons" type="submit" onClick={buttonHandler}>
+                <button
+                  className="control-button"
+                  name="polygons"
+                  type="submit"
+                  onClick={buttonHandler}
+                >
                   DrawModifyQuery
                 </button>
-                <button name="upload" type="submit" onClick={buttonHandler}>
+                <button
+                  className="control-button"
+                  name="upload"
+                  type="submit"
+                  onClick={buttonHandler}
+                >
                   GeoJSONHandler
                 </button>
-                <button name="location" type="submit" onClick={buttonHandler}>
-                  GeoLocator
+               
+                <button
+                  className="control-button"
+                  color="primary"
+                  type="submit"
+                >
+                  Submit
                 </button>
               </div>
-              <div>{listItems}</div>
             </div>
+            <div>{listItems}</div>
           </div>
         )}
       </Formik>

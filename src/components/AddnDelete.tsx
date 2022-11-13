@@ -39,25 +39,10 @@ function AddnDelete({ listItems, updateFeature }): JSX.Element {
     setFeatures(features);
   }, [features]);
 
-  // Passing Coordinates to parent
-  // listItems = features.map((f, i) => {
-  //   // Convert feature points from EPSG:3857 to EPSG:4326
-  //   let coordinates = features.map((f) =>
-  //     transform(f.getGeometry().getCoordinates(), "EPSG:3857", "EPSG:4326")
-  //   );
-  //   return (
-  //     <li key={f.get("uid")}>
-  //       {coordinates[i][0]}{coordinates[i][1]}
-  //     </li>
-  //   );
-  // });
-
-
   return (
     <React.Fragment>
       <RMap
         className="example-map"
-        height={"300px"}
         initial={{ center: fromLonLat([2.364, 48.82]), zoom: 11 }}
         onClick={(e) => {
           const coords = e.map.getCoordinateFromPixel(e.pixel);

@@ -10,13 +10,6 @@ import geojsonFeatures from "./data/tenthou_points.json";
 export default function Features(): JSX.Element {
   const [flow, setFlow] = React.useState([]);
   const [fileSelected] = React.useState<File>(); // also tried <string | Blob>
-  // const handleFileChange = function (e: React.ChangeEvent<HTMLInputElement>) {
-  //   const fileList = e.target.files;
-
-  //   if (!fileList) return;
-
-  //   setFileSelected(fileList[0]);
-  // };
 
   const uploadFile = function (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>
@@ -25,68 +18,20 @@ export default function Features(): JSX.Element {
       const formData = new FormData();
       formData.append("data", fileSelected, fileSelected.name);
       console.log(formData.get("data"));
-
     }
     var file = new File([fileSelected], "foo.json", {
       type: "text/json",
     });
 
-    console.log(file.size)
+    console.log(file.size);
   };
-
-  // const handleSubmit = (event) => {
-  //   // Stop the form from reloading the page
-  //   event.preventDefault();
-
-  //   // If there's no file, do nothing
-  //   if (!event.value.size) return;
-
-  //   // Create a new FileReader() object
-  //   let reader = new FileReader();
-
-  //   reader.readAsText(event.files[0]);
-
-  //   // Setup the callback event to run when the file is read
-  //   const loaded = reader.onload;
-  //   const loading = (event) =>{
-  //     let str = event.target.result;
-  //     let json = JSON.parse(str);
-  //     console.log("string", str);
-  //     console.log("json", json);
-  //   }
-  //   loading(loaded)
-    
-
-    // Read the file
-    //   var files = document.getElementById('selectFiles').files;
-
-    // console.log(files);
-    // if (files.length <= 0) {
-    //   return false;
-    // }
-
-    // var fr = new FileReader();
-
-    // fr.onload = function(e) {
-    // console.log(e);
-    //   var result = JSON.parse(event.target.result);
-    //   var formatted = JSON.stringify(result, null, 2);
-    //       document.getElementById('result').value = formatted;
-    // }
-
-    // fr.readAsText(files.item(0));
-  // };
 
   return (
     <div className="d-flex flex-row">
       <RMap
         className="example-map"
         initial={{ center: fromLonLat([2.364, 48.82]), zoom: 5 }}
-        height={"300px"}
       >
-       
-
-
         <ROSM />
         {/* From a static file included at bundling time */}
         <RLayerVector
@@ -134,13 +79,18 @@ export default function Features(): JSX.Element {
         />
       </div>
 
-       {/* <input
+      {/* <input
           type="file"
           onChange={(e) => this.handleFileChange(e.target.files)}
 
         /> */}
-          <label>File to upload</label>
-          <input type="file" id="file" accept=".json" onClick={(e) => uploadFile(e)} />
+      <label>File to upload</label>
+      <input
+        type="file"
+        id="file"
+        accept=".json"
+        onClick={(e) => uploadFile(e)}
+      />
       {/* <input type="file" id="selectFiles" value="Import" />
       <br /> */}
       {/* <button id="import">Import</button>
