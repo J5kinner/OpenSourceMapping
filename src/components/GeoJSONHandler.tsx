@@ -1,13 +1,13 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { fromLonLat } from "ol/proj";
 import GeoJSON from "ol/format/GeoJSON";
 
 import "ol/ol.css";
-import * as fs from "fs";
+
 
 import { RMap, ROSM, RLayerVector, RStyle } from "rlayers";
 
-import geojsonFeatures from "./data/tenthou_points.json";
+import geojsonFeatures from "./data/geo.json";
 
 export default function Features(): JSX.Element {
   const [flow, setFlow] = React.useState([]);
@@ -30,7 +30,19 @@ export default function Features(): JSX.Element {
     var obj = JSON.parse(event.target.result);
     console.log(obj);
     setGeojson(obj);
+    // const jsonString = JSON.stringify(obj);
+    // const writeFile = new fs.writeFile('./savedJSON.geojson', jsonString, err => {
+    //   if (err) {
+    //     console.log('Error writing file', err);
+    //   } else {
+    //     console.log('Successfully wrote file');
+    //   }
+    //   return writeFile;
+    // });
   };
+
+
+ 
 
   const uploadFile = function (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>
@@ -41,25 +53,34 @@ export default function Features(): JSX.Element {
     }
   };
 
+  const clearFile = function (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ) {
+    setGeojson(undefined);
+    setFileSelected(undefined);
+  }
+
   return (
     <div className="d-flex flex-row">
       <RMap
         className="example-map"
-        initial={{ center: fromLonLat([2.364, 48.82]), zoom: 5 }}
+        initial={{ center: fromLonLat([133.8, -23.6]), zoom: 4 }}
       >
         <ROSM />
         {/* From a static file included at bundling time */}
         {geojson && (
           <RLayerVector
-            zIndex={15}
+            zIndex={16}
             features={new GeoJSON({
               featureProjection: "EPSG:3857",
             }).readFeatures(geojson)}
           >
             <RStyle.RStyle>
-              <RStyle.RCircle radius={5}>
+              <RStyle.RCircle radius={4}>
                 <RStyle.RFill color="red" />
               </RStyle.RCircle>
+              <RStyle.RStroke color="#007bff" width={3} />
+              <RStyle.RFill color="rgba(255, 255, 255, 0.5)" />
             </RStyle.RStyle>
           </RLayerVector>
         )}
@@ -74,15 +95,21 @@ export default function Features(): JSX.Element {
           //   },
           //   [flow]
           // )}
+          onPointerEnter={useCallback(
+            (e) => {
+              setFlow([...flow, "Entering " + e.target.get("STATE_NAME")].slice(-16));
+            },
+            [flow]
+          )}
         >
           <RStyle.RStyle>
             <RStyle.RCircle radius={5}>
-              <RStyle.RFill color="blue" />
+              <RStyle.RFill color="#A6192E" />
             </RStyle.RCircle>
           </RStyle.RStyle>
         </RLayerVector>
         {/* From an URL */}
-        <RLayerVector
+        {/* <RLayerVector
           zIndex={5}
           format={new GeoJSON({ featureProjection: "EPSG:3857" })}
           url="https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson"
@@ -97,7 +124,7 @@ export default function Features(): JSX.Element {
             <RStyle.RStroke color="#007bff" width={3} />
             <RStyle.RFill color="transparent" />
           </RStyle.RStyle>
-        </RLayerVector>
+        </RLayerVector> */}
       </RMap>
       <div className="mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow example-list">
         <p>Your actions</p>
@@ -107,7 +134,7 @@ export default function Features(): JSX.Element {
           }}
         />
       </div>
-      <label>onchange</label>
+      <label>Select File to Upload: </label>
       <input
         accept="json/*"
         type="file"
@@ -115,6 +142,9 @@ export default function Features(): JSX.Element {
         onClick={uploadFile}
         onChange={handleImageChange}
       />
+      <button
+        onClick={clearFile}
+      >Clear Screen</button>
     </div>
   );
 }

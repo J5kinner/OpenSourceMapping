@@ -1,23 +1,27 @@
 {
-	"type":"FeatureCollection",
+	"type": "FeatureCollection",
 	"crs": {
 		"properties": {
 			"name": "EPSG:4326"
 		},
 		"type": "name"
 	},
-	"features":[
+	"features": [
 		{
-			"type":"Feature",
-			"properties":{
-				"d":1,
-				"en":"Momtchil Momtchev<br><em>IT Consulting: GIS, Node, TCP/IP, Linux</em>",
-				"i":"https://momtchil.momtchev.pro/wp-content/uploads/2018/08/ID_ever_small_icon32x32.jpg",
-				"u":"https://momtchil.momtchev.pro/"
+			"type": "Feature",
+			"properties": {
+				"STATE_CODE": "1",
+				"STATE_NAME": "Macquarie University",
+				"d": 1,
+				"en": "Momtchil Momtchev<br><em>IT Consulting: GIS, Node, TCP/IP, Linux</em>",
+				"i": "https://momtchil.momtchev.pro/wp-content/uploads/2018/08/ID_ever_small_icon32x32.jpg",
+				"u": "https://momtchil.momtchev.pro/"
 			},
-			"geometry":{
-				"type":"Point",
-				"coordinates":[2.364010, 48.820224]
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					151.113049,-33.774895
+				]
 			}
 		}
 	]
