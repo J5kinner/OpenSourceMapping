@@ -1,6 +1,6 @@
 {
   "name": "mapping-thesis",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Mapping Software Created using OpenLayers for thesis project",
   "main": "src/index.tsx",
   "bin": "src/index.tsx",
