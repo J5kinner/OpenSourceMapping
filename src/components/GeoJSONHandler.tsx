@@ -1,7 +1,9 @@
-import React, { useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { fromLonLat } from "ol/proj";
 import GeoJSON from "ol/format/GeoJSON";
+
 import "ol/ol.css";
+import * as fs from "fs";
 
 import { RMap, ROSM, RLayerVector, RStyle } from "rlayers";
 
@@ -9,21 +11,34 @@ import geojsonFeatures from "./data/tenthou_points.json";
 
 export default function Features(): JSX.Element {
   const [flow, setFlow] = React.useState([]);
-  const [fileSelected] = React.useState<File>(); // also tried <string | Blob>
+  const [fileSelected, setFileSelected] = React.useState<File>();
+  const [geojson, setGeojson] = React.useState<GeoJSON>();
+
+  const handleImageChange = function (e: React.ChangeEvent<HTMLInputElement>) {
+    const fileList = e.target.files;
+    if (!fileList) return;
+
+    var reader = new FileReader();
+    reader.onload = onReaderLoad;
+    reader.readAsText(fileList[0]);
+
+    console.log(fileList[0].name);
+    setFileSelected(fileList[0]);
+  };
+
+  const onReaderLoad = function (event: any) {
+    var obj = JSON.parse(event.target.result);
+    console.log(obj);
+    setGeojson(obj);
+  };
 
   const uploadFile = function (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>
   ) {
     if (fileSelected) {
       const formData = new FormData();
-      formData.append("data", fileSelected, fileSelected.name);
-      console.log(formData.get("data"));
+      formData.append("image", fileSelected, fileSelected.name);
     }
-    var file = new File([fileSelected], "foo.json", {
-      type: "text/json",
-    });
-
-    console.log(file.size);
   };
 
   return (
@@ -34,17 +49,31 @@ export default function Features(): JSX.Element {
       >
         <ROSM />
         {/* From a static file included at bundling time */}
+        {geojson && (
+          <RLayerVector
+            zIndex={15}
+            features={new GeoJSON({
+              featureProjection: "EPSG:3857",
+            }).readFeatures(geojson)}
+          >
+            <RStyle.RStyle>
+              <RStyle.RCircle radius={5}>
+                <RStyle.RFill color="red" />
+              </RStyle.RCircle>
+            </RStyle.RStyle>
+          </RLayerVector>
+        )}
         <RLayerVector
           zIndex={15}
           features={new GeoJSON({
             featureProjection: "EPSG:3857",
           }).readFeatures(geojsonFeatures)}
-          onClick={useCallback(
-            (e) => {
-              setFlow([...flow, e.target.get("en")].slice(-16));
-            },
-            [flow]
-          )}
+          // onClick={useCallback(
+          //   (e) => {
+          //     setFlow([...flow, e.target.get("en")].slice(-16));
+          //   },
+          //   [flow]
+          // )}
         >
           <RStyle.RStyle>
             <RStyle.RCircle radius={5}>
@@ -78,23 +107,14 @@ export default function Features(): JSX.Element {
           }}
         />
       </div>
-
-      {/* <input
-          type="file"
-          onChange={(e) => this.handleFileChange(e.target.files)}
-
-        /> */}
-      <label>File to upload</label>
+      <label>onchange</label>
       <input
+        accept="json/*"
         type="file"
-        id="file"
-        accept=".json"
-        onClick={(e) => uploadFile(e)}
+        multiple={false}
+        onClick={uploadFile}
+        onChange={handleImageChange}
       />
-      {/* <input type="file" id="selectFiles" value="Import" />
-      <br /> */}
-      {/* <button id="import">Import</button>
-      <textarea id="result"></textarea> */}
     </div>
   );
 }

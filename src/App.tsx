@@ -15,6 +15,7 @@ import GeoLocator from "./components/GeoLocator";
 //Formik
 
 const App = () => {
+  //recording coordinates for points
   const [parentFeature, setParentFeature] = useState([]);
   const [mapType, setMapType] = useState("");
 
@@ -111,7 +112,7 @@ const App = () => {
               <Form>{GetFeature(mapType)}</Form>
 
               <section className="bottom-buttons">
-                <button className="submit-button" color="primary" type="submit">
+                <button className="submit-button" color="primary" type="submit" onClick={buttonHandler}>
                   Upload
                 </button>
                 <button className="grey-button" color="primary" type="submit">
@@ -158,7 +159,7 @@ const App = () => {
                 </button>
                
                 <button
-                  className="control-button"
+                  className="grey-control-button"
                   color="primary"
                   type="submit"
                 >
