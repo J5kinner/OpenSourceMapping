@@ -1,11 +1,10 @@
-import React, { useState, useCallback, useMemo, useEffect } from "react";
-import { fromLonLat } from "ol/proj";
 import GeoJSON from "ol/format/GeoJSON";
+import { fromLonLat } from "ol/proj";
+import React, { useCallback } from "react";
 
 import "ol/ol.css";
 
-
-import { RMap, ROSM, RLayerVector, RStyle } from "rlayers";
+import { RLayerVector, RMap, ROSM, RStyle } from "rlayers";
 
 import geojsonFeatures from "./data/geo.json";
 
@@ -41,9 +40,6 @@ export default function Features(): JSX.Element {
     // });
   };
 
-
- 
-
   const uploadFile = function (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>
   ) {
@@ -58,7 +54,7 @@ export default function Features(): JSX.Element {
   ) {
     setGeojson(undefined);
     setFileSelected(undefined);
-  }
+  };
 
   return (
     <div className="d-flex flex-row">
@@ -77,7 +73,7 @@ export default function Features(): JSX.Element {
           >
             <RStyle.RStyle>
               <RStyle.RCircle radius={4}>
-                <RStyle.RFill color="red" />
+                <RStyle.RFill color="green" />
               </RStyle.RCircle>
               <RStyle.RStroke color="#007bff" width={3} />
               <RStyle.RFill color="rgba(255, 255, 255, 0.5)" />
@@ -97,7 +93,9 @@ export default function Features(): JSX.Element {
           // )}
           onPointerEnter={useCallback(
             (e) => {
-              setFlow([...flow, "Entering " + e.target.get("STATE_NAME")].slice(-16));
+              setFlow(
+                [...flow, "Entering " + e.target.get("STATE_NAME")].slice(-16)
+              );
             },
             [flow]
           )}
@@ -127,24 +125,23 @@ export default function Features(): JSX.Element {
         </RLayerVector> */}
       </RMap>
       <div className="mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow example-list">
-        <p>Your actions</p>
         <ul
           dangerouslySetInnerHTML={{
             __html: flow.map((p) => `<li className="m-0">${p}</li>`).join(""),
           }}
         />
       </div>
-      <label>Select File to Upload: </label>
       <input
+        className="submit-button"
         accept="json/*"
         type="file"
         multiple={false}
         onClick={uploadFile}
         onChange={handleImageChange}
       />
-      <button
-        onClick={clearFile}
-      >Clear Screen</button>
+      <button className="submit-button" onClick={clearFile}>
+        Clear Screen
+      </button>
     </div>
   );
 }

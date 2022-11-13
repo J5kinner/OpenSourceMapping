@@ -9,7 +9,7 @@ import monument from "./svg/monument.svg";
 import { RMap, ROSM, RLayerVector, RStyle, RFeature, ROverlay } from "rlayers";
 
 export const coords: Record<string, Coordinate> = {
-  "Tour Eiffel": [2.294, 48.858],
+  "Tour Eiffel": [151.115684,-33.773687],
 };
 
 let unique_id = 0;
@@ -43,7 +43,7 @@ function AddnDelete({ listItems, updateFeature }): JSX.Element {
     <React.Fragment>
       <RMap
         className="example-map"
-        initial={{ center: fromLonLat([2.364, 48.82]), zoom: 11 }}
+        initial={{ center: fromLonLat([151.115684,-33.773687]), zoom: 17 }}
         onClick={(e) => {
           const coords = e.map.getCoordinateFromPixel(e.pixel);
           // console.log(e.pixel)
